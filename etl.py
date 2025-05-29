@@ -78,6 +78,9 @@ upload_order_info = SSHOperator(
 # 6).Execute the spark program to filter the orders
 
 def get_order_filter_cmd():
+
+    print("Getting orders filtering using spark and submitting job");
+    
     command_zero = "export SPARK_MAJOR_VERSION=2"
     command_one = "hdfs dfs -rm -R -f airflow_output"
     command_two = "spark-submit --class DataFramesExample sparkbundle.jar airflow_input/orders.csv airflow_output"
