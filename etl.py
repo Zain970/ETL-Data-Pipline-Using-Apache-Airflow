@@ -80,7 +80,7 @@ upload_order_info = SSHOperator(
 def get_order_filter_cmd():
 
     print("Getting orders filtering using spark and submitting job");
-    
+
     command_zero = "export SPARK_MAJOR_VERSION=2"
     command_one = "hdfs dfs -rm -R -f airflow_output"
     command_two = "spark-submit --class DataFramesExample sparkbundle.jar airflow_input/orders.csv airflow_output"
@@ -119,6 +119,9 @@ def load_hdfs_cmd():
     command_two = 'hive -e "insert overwrite table airflow.airflow_hbase select c.customer_id,c.customerfname,c.customer_lname,o.order_id from airflow.customers c join airflow.orders o on (c.customer_id = o.customer_id)"'
 
     return f'{command_one} && {command_two}'
+
+def check_status():
+    print("Checking the status of the cluster");
 
 load_hbase = SSHOperator(
     task_id="load_hbase_table",
